@@ -1,32 +1,40 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.scss';
+import React from 'react';
+import Article from '../components/Article';
 import fetch from 'node-fetch';
 import { NEXT_PUBLIC_NEWS_KEY } from '../config';
 
-export default function Home({ newsFeed }) {
-  console.log(newsFeed);
+import styles from '../styles/Home.module.scss';
+
+export default function Home({ articles }) {
+  console.log(articles);
+  const [page, setPage] = React.useState<number>(0);
+
   return (
     <div>
       <h1>Welcome To Next.js News App</h1>
+      <div className={styles['grid']}>
+        {articles.map((article) => (
+          <Article key={article.id} article={article} />
+        ))}
+      </div>
     </div>
   );
 }
 
 export const getStaticProps = async () => {
-  // const res = await fetch(
-  //   `https://jsonplaceholder.typicode.com/posts?_limit=6`,
-  // );
-  // const articles = await res.json();
-
   const res = await fetch(
-    `https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey=${NEXT_PUBLIC_NEWS_KEY}`,
+    `https://jsonplaceholder.typicode.com/posts?_limit=6`,
   );
-  const newsFeed = await res.json();
+  const articles = await res.json();
+
+  // const res = await fetch(
+  //   `https://newsapi.org/v2/top-headlines?country=us&pageSize=5&page=${page}apiKey=${NEXT_PUBLIC_NEWS_KEY}`,
+  // );
+  // const newsFeed = await res.json();
 
   return {
     props: {
-      newsFeed,
+      articles,
     },
   };
 };
