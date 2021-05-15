@@ -6,7 +6,6 @@ import { NEXT_PUBLIC_NEWS_KEY } from '../config';
 import styles from '../styles/Home.module.scss';
 
 export default function Home({ articles }) {
-  console.log(articles);
   const [page, setPage] = React.useState<number>(0);
 
   return (
