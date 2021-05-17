@@ -4,7 +4,7 @@ import styles from '../styles/Article.module.scss';
 
 const Article = ({ article }) => {
   return (
-    <Link href="/feed/[id]" as={`/feed/${article.id}`}>
+    <Link href="/article/[id]" as={`/article/${article.id}`}>
       <div className={styles['card']}>
         <h2>{article.title} &rarr;</h2>
         <p>{article.body}</p>

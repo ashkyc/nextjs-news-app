@@ -24,7 +24,7 @@ export const getStaticProps = async () => {
   // const res = await fetch(
   //   `https://jsonplaceholder.typicode.com/posts?_limit=6`,
   // );
-  const res = await fetch(`${serverUrl}/api/feeds`);
+  const res = await fetch(`${serverUrl}/api/articles`);
   const articles = await res.json();
 
   // const res = await fetch(

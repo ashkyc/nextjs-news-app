@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
 import { serverUrl } from '../../../config';
 
-const Feed = ({ feed }) => {
+const Article = ({ article }) => {
   return (
     <>
-      <h1>{feed.title}</h1>
-      <p>{feed.body}</p>
+      <h1>{article.title}</h1>
+      <p>{article.body}</p>
     </>
   );
 };
@@ -17,22 +17,22 @@ export const getStaticProps = async (context) => {
   //   const res = await fetch(
   //     `https://jsonplaceholder.typicode.com/posts/${context.params.id}`,
   //   );
-  const res = await fetch(`${serverUrl}/api/feeds/${context.params.id}`);
-  const feed = await res.json();
+  const res = await fetch(`${serverUrl}/api/articles/${context.params.id}`);
+  const article = await res.json();
 
   return {
     props: {
-      feed,
+      article,
     },
   };
 };
 
 export const getStaticPaths = async () => {
   //   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-  const res = await fetch(`${serverUrl}/api/feeds`);
-  const feeds = await res.json();
+  const res = await fetch(`${serverUrl}/api/articles`);
+  const articles = await res.json();
 
-  const ids = feeds.map((feed) => feed.id);
+  const ids = articles.map((feed) => feed.id);
   const paths = ids.map((id) => ({ params: { id: id.toString() } }));
 
   return {
@@ -41,4 +41,4 @@ export const getStaticPaths = async () => {
   };
 };
 
-export default Feed;
+export default Article;
