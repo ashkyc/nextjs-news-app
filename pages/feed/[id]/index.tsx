@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
+import { serverUrl } from '../../../config';
 
 const Feed = ({ feed }) => {
   return (
@@ -11,10 +12,12 @@ const Feed = ({ feed }) => {
   );
 };
 
+//fetch data at build time
 export const getStaticProps = async (context) => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${context.params.id}`,
-  );
+  //   const res = await fetch(
+  //     `https://jsonplaceholder.typicode.com/posts/${context.params.id}`,
+  //   );
+  const res = await fetch(`${serverUrl}/api/feeds/${context.params.id}`);
   const feed = await res.json();
 
   return {
@@ -25,7 +28,8 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+  //   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+  const res = await fetch(`${serverUrl}/api/feeds`);
   const feeds = await res.json();
 
   const ids = feeds.map((feed) => feed.id);

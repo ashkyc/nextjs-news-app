@@ -1,7 +1,7 @@
 import React from 'react';
 import Article from '../components/Article';
 import fetch from 'node-fetch';
-import { NEXT_PUBLIC_NEWS_KEY } from '../config';
+import { NEXT_PUBLIC_NEWS_KEY, serverUrl } from '../config';
 
 import styles from '../styles/Home.module.scss';
 
@@ -21,9 +21,10 @@ export default function Home({ articles }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?_limit=6`,
-  );
+  // const res = await fetch(
+  //   `https://jsonplaceholder.typicode.com/posts?_limit=6`,
+  // );
+  const res = await fetch(`${serverUrl}/api/feeds`);
   const articles = await res.json();
 
   // const res = await fetch(
